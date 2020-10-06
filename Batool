@@ -1,0 +1,47 @@
+CreateSampleAccounts(Integer numberOfAccounts) {
+        
+        List<Account> acctList = new List<Account>();
+        
+        // To insert account with name 'Sample Account 1', change the value of i to 2
+        //and loop through the accounts
+        for (Integer i = 2; i <= numberOfAccounts; i++) {
+            Account a = new Account();  
+            //Create account with name 'Sample Account' with iteration number in name
+            a.Name = 'Sample Account' + i; 
+            //Add accounts to the list
+            acctList.add(a);
+            System.debug(acctList);
+            
+        }
+        //Bulk insert accounts with one DML insert statement
+        insert acctList;
+        
+        //Create case after accounts are inserted
+        List<Case> casesToInsert = new List<Case>();
+        //Change the name of variable to acctList
+        for (Account a: acctList) {
+            Case c = new Case();
+            //Replaced double quotes to single quotes
+            c.Status = 'New'; 
+            //Inserted semicolon at the end;
+            c.Origin = 'New Account';
+            //Get the account Id for inserted accounts
+            c.AccountId = a.Id;
+            //Add '=' sign
+            c.Subject = 'New Case';
+            //Change double equal to operator 
+            c.Description = 'Follow Up';
+            //Add case to the list
+            casesToInsert.add(c);
+            
+        }
+        //insert case if account is created
+            
+            insert casesToInsert;
+        
+    }
+    
+    
+}public class CreateSampleAccounts {
+
+}
